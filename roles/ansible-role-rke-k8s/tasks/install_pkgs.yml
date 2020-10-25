@@ -14,3 +14,21 @@
 - name: Debug install
   debug:
     msg: "{{ __install }}"
+  when: ansible_ec2_debug == true
+
+- name: enable and start docker
+  sysvinit:
+    name: docker
+    state: started
+    enabled: true
+  become: true
+
+- name: validate docker
+  shell:
+    cmd: 'docker ps -a'
+  become: true
+  register: __docker_ps
+
+- name: debug docker ps
+  debug:
+    msg: "{{ __docker_ps.stdout }}"
