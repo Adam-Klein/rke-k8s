@@ -1,0 +1,16 @@
+---
+
+# Install specified packages on EC2 instances
+
+- name: Install packages
+  yum:
+    name: "{{ item }}"
+    state: present
+    use_backend: yum
+  loop: "{{ ansible_ec2_packages }}"
+  become: true
+  register: __install
+
+- name: Debug install
+  debug:
+    msg: "{{ __install }}"
