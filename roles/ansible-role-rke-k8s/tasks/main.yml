@@ -3,3 +3,6 @@
 
 - name: Install needed packages
   include_tasks: install_pkgs.yml
+
+- name: Perform prerequisite tasks to installing K8s
+  include_tasks: prereqs.yml

@@ -23,12 +23,17 @@
     enabled: true
   become: true
 
-- name: validate docker
-  shell:
-    cmd: 'docker ps -a'
-  become: true
-  register: __docker_ps
+- name: Validate docer with ps
+  block:
 
-- name: debug docker ps
-  debug:
-    msg: "{{ __docker_ps.stdout }}"
+  - name: Docker ps
+    shell:
+      cmd: 'docker ps -a'
+    become: true
+    register: __docker_ps
+
+  - name: Return docker ps output
+    debug:
+      msg: "{{ __docker_ps.stdout }}"
+  
+  when: ansible_ec2_debug == true
