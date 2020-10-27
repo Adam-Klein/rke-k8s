@@ -37,3 +37,32 @@
       msg: "{{ __docker_ps.stdout }}"
   
   when: ansible_ec2_debug == true
+
+- name: Create /etc/systemd/docker.service.d directory
+  file:
+    path: /etc/systemd/docker.service.d
+    state: directory
+    mode: '0755'
+    owner: root
+    group: root
+  become: true
+
+- name: Copy mount_flags.conf to /etc/systemd/docker.service.d/
+  copy:
+    src: files/mount_flags.conf
+    dest: /etc/systemd/docker.service.d/mount_flags.conf
+    mode: '0644'
+    owner: root
+    group: root
+  become: true
+
+- name: Fix /var/lib shared error
+  shell: 'mount --make-rshared /'
+  become: true
+
+- name: Enable sshd TCPForwarding
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#AllowTcpForwarding yes'
+    lineinfile: 'AllowTcpForwarding yes'
+  become: true
