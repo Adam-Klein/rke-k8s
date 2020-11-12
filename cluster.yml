@@ -1,12 +1,11 @@
 # If you intened to deploy Kubernetes in an air-gapped environment,
 # please consult the documentation on how to configure custom RKE images.
 nodes:
-- address: ec2-54-186-53-59.us-west-2.compute.amazonaws.com
+- address: ec2-34-217-210-247.us-west-2.compute.amazonaws.com
   port: "22"
-  internal_address: 172.31.42.238
+  internal_address: 172.31.22.29
   role:
   - controlplane
-  - worker
   - etcd
   hostname_override: ""
   user: ec2-user
@@ -17,12 +16,11 @@ nodes:
   ssh_cert_path: ""
   labels: {}
   taints: []
-- address: ec2-52-34-11-56.us-west-2.compute.amazonaws.com
+- address: ec2-34-219-72-12.us-west-2.compute.amazonaws.com
   port: "22"
-  internal_address: 172.31.39.76
+  internal_address: 172.31.20.167
   role:
   - controlplane
-  - worker
   - etcd
   hostname_override: ""
   user: ec2-user
@@ -33,12 +31,11 @@ nodes:
   ssh_cert_path: ""
   labels: {}
   taints: []
-- address: ec2-34-215-181-14.us-west-2.compute.amazonaws.com
+- address: ec2-35-164-255-182.us-west-2.compute.amazonaws.com
   port: "22"
-  internal_address: 172.31.39.124
+  internal_address: 172.31.27.224
   role:
   - controlplane
-  - worker
   - etcd
   hostname_override: ""
   user: ec2-user
@@ -49,11 +46,10 @@ nodes:
   ssh_cert_path: ""
   labels: {}
   taints: []
-- address: ec2-34-220-238-31.us-west-2.compute.amazonaws.com
+- address: ec2-52-33-53-9.us-west-2.compute.amazonaws.com
   port: "22"
-  internal_address: 172.31.43.185
+  internal_address: 172.31.22.149
   role:
-  - controlplane
   - worker
   hostname_override: ""
   user: ec2-user
@@ -64,11 +60,10 @@ nodes:
   ssh_cert_path: ""
   labels: {}
   taints: []
-- address: ec2-34-215-102-16.us-west-2.compute.amazonaws.com
+- address: ec2-54-218-225-22.us-west-2.compute.amazonaws.com
   port: "22"
-  internal_address: 172.31.33.251
+  internal_address: 172.31.23.36
   role:
-  - controlplane
   - worker
   hostname_override: ""
   user: ec2-user
@@ -79,11 +74,10 @@ nodes:
   ssh_cert_path: ""
   labels: {}
   taints: []
-- address: ec2-35-167-231-79.us-west-2.compute.amazonaws.com
+- address: ec2-54-244-184-242.us-west-2.compute.amazonaws.com
   port: "22"
-  internal_address: 172.31.42.19
+  internal_address: 172.31.20.176
   role:
-  - controlplane
   - worker
   hostname_override: ""
   user: ec2-user
@@ -94,11 +88,10 @@ nodes:
   ssh_cert_path: ""
   labels: {}
   taints: []
-- address: ec2-52-40-173-253.us-west-2.compute.amazonaws.com
+- address: ec2-54-244-61-7.us-west-2.compute.amazonaws.com
   port: "22"
-  internal_address: 172.31.46.70
+  internal_address: 172.31.25.200
   role:
-  - controlplane
   - worker
   hostname_override: ""
   user: ec2-user
@@ -248,6 +241,9 @@ ingress:
   extra_volumes: []
   extra_volume_mounts: []
   update_strategy: null
+  http_port: 0
+  https_port: 0
+  network_mode: ""
 cluster_name: ""
 cloud_provider:
   name: ""

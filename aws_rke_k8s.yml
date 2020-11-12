@@ -1,22 +1,35 @@
 ---
 
 - name: Install Kubernetes cluster via RKE on EC2 instances
-  hosts: tag_group_k8s_rke
+  hosts: tag_group_rke_k8s
   collections:
     - amazon.aws
     - community.aws.ec2_instance_facts
 
   vars:
-    ansible_aws_region: "us-west-2"
-    ansible_aws_security_group: "Filbert_Estates_ssh"
-    ansible_aws_key_name: "alklein_us-west"
-    ansible_aws_instance_group: "k8s-rke"
-    ansible_instance_status: stopped
-    ansible_aws_activity: build
-    ansible_ec2_debug: false
+    ansible_ec2_instance_user: ec2-user
+    ansible_aws_instance_group: "rke-k8s"
+    ansible_ec2_debug: true
+
 
   roles:
   - role: ansible-role-rke-k8s
     vars:
-      ansible_ec2_packages:
+      ansible_add_ec2_packages:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+
+      ansible_docker_ec2_packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+
+      ansible_remove_ec2_packages:
       - docker
+      - docker-engine
+      - docker.io
+      - containerd
+      - runc
