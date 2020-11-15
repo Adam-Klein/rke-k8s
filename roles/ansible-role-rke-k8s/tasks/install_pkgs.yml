@@ -65,6 +65,61 @@
 
   when: ansible_ec2_instance_user == 'ubuntu'
 
+
+
+- name: deal with yum image
+  block:
+
+    - name: Remove old docker packages
+      yum:
+        name: "{{ item }}"
+        state: absent
+      loop: "{{ ansible_remove_ec2_packages }}"
+      become: true
+
+    - name: Install packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ ansible_add_ec2_packages }}"
+      become: true
+      register: __install
+
+    - name: Install docker packages
+      yum: 
+        name: "{{ item }}"
+        state: present
+      loop: "{{ ansible_docker_ec2_packages }}"
+      become: true
+      register: __install
+
+    - name: Debug install
+      debug:
+        msg: "{{ __install }}"
+      when: ansible_ec2_debug == true
+
+    - name: Ensure group docker exists
+      group:
+        name: docker
+        state: present
+      become: true
+
+    - name: add {{ ansible_ec2_instance_user }} to docker group
+      user:
+        name: "{{ ansible_ec2_instance_user }}"
+        groups: 
+          - docker
+      become: true
+
+    - name: enable and start docker service
+      systemd:
+        name: docker
+        enabled: true
+        state: started
+      become: true
+
+  when: ansible_ec2_instance_user == 'ec2-user'
+
 - name: Validate docker with ps
   block:
 

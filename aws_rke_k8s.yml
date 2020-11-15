@@ -16,11 +16,11 @@
   - role: ansible-role-rke-k8s
     vars:
       ansible_add_ec2_packages:
-      - apt-transport-https
+#      - apt-transport-https
       - ca-certificates
       - curl
-      - gnupg-agent
-      - software-properties-common
+#      - gnupg-agent
+#      - software-properties-common
 
       ansible_docker_ec2_packages:
       - docker-ce
